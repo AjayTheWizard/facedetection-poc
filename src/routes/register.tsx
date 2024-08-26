@@ -71,12 +71,6 @@ export default function RegisterPage() {
             console.error(e);
             alert("Something went wrong at Storing Database");
           }
-          // Store the name and descriptor in localStorage (or send to a backend)
-          const storedData = localStorage.getItem("faceData");
-          const faceData = storedData ? JSON.parse(storedData) : [];
-          faceData.push({ name, descriptor });
-          localStorage.setItem("faceData", JSON.stringify(faceData));
-
           alert(`Face for ${name} registered successfully!`);
         } else {
           alert("No face detected, please try again.");

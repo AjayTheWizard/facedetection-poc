@@ -65,7 +65,7 @@ export default function VerifyPage() {
             const dbDescriptor = existingDoc.docs[0].data().descriptor as number[];
             if (Array.isArray(dbDescriptor) && descriptor.length === dbDescriptor.length) {
               const distance = faceapi.euclideanDistance(descriptor, dbDescriptor);
-              if (distance < 0.9) { // Threshold for similarity
+              if (distance < 0.45) { // Threshold for similarity
                 setVerificationResult(`Successfully verified as ${name}`);
               } else {
                 setVerificationResult("Face does not match the registered user");
