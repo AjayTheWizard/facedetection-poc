@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import ReactWebcam from "react-webcam";
 import "@tensorflow/tfjs";
 import * as faceapi from '@vladmandic/face-api';
