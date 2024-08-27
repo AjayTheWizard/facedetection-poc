@@ -7,32 +7,14 @@ import { db } from "../lib/firebase";
 
 export default function VerifyPage() {
   const webcamRef = useRef<ReactWebcam>(null);
-  const [modelsLoaded, setModelsLoaded] = useState(false);
   const [verificationResult, setVerificationResult] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const loadModels = async () => {
-      try {
-        await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
-        await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
-        await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
-        setModelsLoaded(true);
-      } catch (error) {
-        console.error("Error loading face-api models", error);
-      }
-    };
-    loadModels();
-  }, []);
-
   const handleVerify = async () => {
+    if(isLoading) return;
     try {
-      setIsLoading(true)
-      if (!modelsLoaded) {
-        alert("Models are still loading, please wait a moment...");
-        return;
-      }
+      setIsLoading(true);
 
       if (!name.trim()) {
         alert("Please enter your name before verification");
@@ -96,7 +78,7 @@ export default function VerifyPage() {
         className="focus:outline-none bg-zinc-800 p-2"
       />
       <ReactWebcam mirrored ref={webcamRef} width={640 * 0.8} height={400 * 0.8} className="border-2 mx-auto border-white" />
-      <button disabled={isLoading} className="px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white" onClick={handleVerify}>
+      <button className="px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white" onClick={handleVerify}>
         {isLoading ? "Verifying..." : "Verify"}
       </button>
       {verificationResult && <p>{verificationResult}</p>}
